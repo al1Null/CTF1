@@ -25,11 +25,11 @@ def log_traces(elapsed_time, traces, old_traces, water_volume_ml, red_ml, blue_m
     max_width = max(max(map(len, map(str, traces))), max(map(len, map(str, diff))))
     format_str = "{:>" + str(max_width) + "}"
 
-    header = f"Elapsed Time | V | R | B | " + " | ".join([f"Trace {i+1}" for i in range(len(traces))])
+    header = f"Elapsed Time | V | R | B | " + " | ".join([f"{i+1}" for i in range(len(traces))])
     header = header.ljust(len(header) + (max_width - 7) * len(traces))  # adjusting for 'Trace x'
 
-    values = "{:<3.2f} | {:<3.2f} | {:<3.2f} | {:<3.2f} | ".format(elapsed_time, water_volume_ml, red_ml, blue_ml) + " | ".join([format_str.format(val) for val in traces])
-    rate_diff = "Rate Diff     |   |   |   | " + " | ".join([format_str.format(val) for val in diff])
+    values = "{:<13.2f} | {:<3.2f} | {:<3.2f} | {:<3.2f} | ".format(elapsed_time, water_volume_ml, red_ml, blue_ml) + " | ".join([format_str.format(val) for val in traces])
+    rate_diff = "Rate Diff     |     |     |     | " + " | ".join([format_str.format(val) for val in diff])
 
     print("-" * len(header))
     print(header)
