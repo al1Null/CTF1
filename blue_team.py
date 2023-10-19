@@ -29,7 +29,7 @@ def log_traces(elapsed_time, traces, old_traces, water_volume_ml, red_ml, blue_m
     header = header.ljust(len(header) + (max_width - 7) * len(traces))  # adjusting for 'Trace x'
 
     values = "{:<13.2f} | {:<13.2f} | {:<12.2f} | {:<13.2f} | ".format(elapsed_time, water_volume_ml, red_ml, blue_ml) + " | ".join([format_str.format(val) for val in traces])
-    rate_diff = "Rate Diff     |               |              |               | " + " | ".join([format_str.format(val) for val in diff])
+    rate_diff = "Rate Diff     |   |   |   | " + " | ".join([format_str.format(val) for val in diff])
 
     print("-" * len(header))
     print(header)
