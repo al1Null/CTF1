@@ -61,12 +61,16 @@ def monitor(ip_add, d, s_time, num_registers=16):
     start_time = time.time()
     old_traces = [0] * num_registers
 
+    # Instantiate the RobustMonitor class
+    robust_monitor = check_robustness()
+
     while time.time() - start_time < d:
         traces = read_traces(client, num_registers)
         elapsed_time = time.time() - start_time
         log_traces(elapsed_time, traces, old_traces, traces[3], traces[5], traces[6])  # Using 0-based indices
 
-        rob = check_robustness(traces)
+        # Use the RobustMonitor's monitor method instead of the standalone function
+        rob = robust_monitor.monitor(traces)
         if rob < 0:
             stop_pumps_and_plant(client)
             break
@@ -75,6 +79,7 @@ def monitor(ip_add, d, s_time, num_registers=16):
         time.sleep(s_time)
 
     client.close()
+
 
 
 if __name__ == "__main__":
