@@ -15,9 +15,22 @@ def read_traces(client, num_registers=16):
 
 def log_traces(elapsed_time, traces, old_traces):
     diff = [cur - old for cur, old in zip(traces, old_traces)]
+
+    # Logging to the file
     with open("blue_team_traces.txt", "a") as f:
         f.write(f"{elapsed_time},{','.join(map(str, traces))}\n")
         f.write(f"{elapsed_time},{','.join(map(str, diff))}\n")
+
+    # Logging to the console
+    header = "Elapsed Time | " + " | ".join([f"Trace {i+1}" for i in range(len(traces))])
+    values = f"{elapsed_time:.2f}        | " + " | ".join(map(str, traces))
+    rate_diff = "Rate Diff     | " + " | ".join(map(str, diff))
+
+    print("-" * len(header))
+    print(header)
+    print(values)
+    print(rate_diff)
+    print("-" * len(header))
 
 
 def stop_pumps_and_plant(client):
