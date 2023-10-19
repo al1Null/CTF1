@@ -1,6 +1,6 @@
 def monitor(traces):
     # TODO: Modify this as per actual robustness criteria.
-    THRESHOLD = 1000
+    THRESHOLD = 20
 
     total_value = sum(traces)
 
