@@ -22,9 +22,12 @@ def log_traces(elapsed_time, traces, old_traces):
         f.write(f"{elapsed_time},{','.join(map(str, diff))}\n")
 
     # Logging to the console
-    header = "Elapsed Time | " + " | ".join([f"Trace {i+1}" for i in range(len(traces))])
-    values = f"{elapsed_time:.2f}        | " + " | ".join(map(str, traces))
-    rate_diff = "Rate Diff     | " + " | ".join(map(str, diff))
+    max_width = max(max(map(len, map(str, traces))), max(map(len, map(str, old_traces)))) + 2
+    format_str = "{:<"+ str(max_width) + "}"
+
+    header = "Elapsed Time | " + " | ".join([format_str.format(f"Trace {i+1}") for i in range(len(traces))])
+    values = f"{elapsed_time:.2f}       | " + " | ".join([format_str.format(str(val)) for val in traces])
+    rate_diff = "Rate Diff     | " + " | ".join([format_str.format(str(val)) for val in diff])
 
     print("-" * len(header))
     print(header)
